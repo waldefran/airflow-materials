@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Build the base images from which are based the Dockerfiles 
 docker build -t hadoop-base docker/hadoop/hadoop-base
 docker build -t hive-base docker/hive/hive-base

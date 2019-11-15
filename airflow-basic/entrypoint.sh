@@ -3,8 +3,8 @@
 # Initiliase the metadatabase
 airflow initdb
 
-# Run the webserver in background and redirect the standard output and standard error to the file output.log
-airflow webserver &> output.log &
+# Run the scheduler in background
+airflow scheduler &> /dev/null &
 
-# Run the scheduler
-exec airflow scheduler
+# Run the web server in foreground (for docker logs)
+exec airflow webserver

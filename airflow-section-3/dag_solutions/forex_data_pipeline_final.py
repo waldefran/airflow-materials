@@ -114,7 +114,7 @@ with DAG(dag_id="forex_data_pipeline_final", schedule_interval="@daily", default
     # https://stackoverflow.com/questions/51829200/how-to-set-up-airflow-send-email
     sending_email_notification = EmailOperator(
             task_id="sending_email",
-            to="marclamberti.ml@gmail.com",
+            to="airflow_course@yopmail.com",
             subject="forex_data_pipeline",
             html_content="""
                 <h3>forex_data_pipeline succeeded</h3>
@@ -126,7 +126,7 @@ with DAG(dag_id="forex_data_pipeline_final", schedule_interval="@daily", default
     # https://medium.com/datareply/integrating-slack-alerts-in-airflow-c9dcd155105
     sending_slack_notification = SlackAPIPostOperator(
         task_id="sending_slack",
-        slack_conn_id="slack",
+        token="xoxp-753801195270-740121926339-751642514144-8391b800988bed43247926b03742459e",
         username="airflow",
         text="DAG forex_data_pipeline: DONE",
         channel="#airflow-exploit"

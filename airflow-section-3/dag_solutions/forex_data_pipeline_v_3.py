@@ -27,6 +27,7 @@ with DAG(dag_id="forex_data_pipeline_v_3", schedule_interval="@daily", default_a
     )
 
     is_forex_currencies_file_available = FileSensor(
+        task_id="is_forex_currencies_file_available",
         fs_conn_id="forex_path",
         filepath="forex_currencies.csv",
         poke_interval=5,

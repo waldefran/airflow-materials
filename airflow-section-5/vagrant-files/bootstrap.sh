@@ -33,13 +33,17 @@ systemctl stop firewalld
 # Add sysctl settings
 echo "[TASK 6] Add sysctl settings"
 cat >>/etc/sysctl.d/kubernetes.conf<<EOF
-net.bridge.bridge-nf-call-ip6tables = 1
-net.bridge.bridge-nf-call-iptables = 1
-EOF
-cat >/proc/sys/net/bridge/bridge-nf-call-iptables << EOF
-1
+net.bridge.bridge-nf-call-ip6tables=1
+net.bridge.bridge-nf-call-iptables=1
 EOF
 sysctl --system >/dev/null 2>&1
+
+cat >> /etc/sysctl.conf <<EOF
+net.ipv4.ip_forward=1
+EOF
+sysctl -p >/dev/null 2>&1
+
+echo "nameserver 8.8.8.8">/etc/resolv.conf
 
 # Disable swap
 echo "[TASK 7] Disable and turn off SWAP"

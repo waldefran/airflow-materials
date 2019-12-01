@@ -21,7 +21,7 @@ def third_task():
 with DAG(dag_id='depends_task', schedule_interval="0 0 * * *", default_args=default_args) as dag:
     
     # Task 1
-    bash_task_1 = BashOperator(task_id='bash_task_1', bash_command="echo 'first task'", wait_for_downstream=True)
+    bash_task_1 = BashOperator(task_id='bash_task_1', bash_command="echo 'first task'")
     
     # Task 2
     python_task_2 = PythonOperator(task_id='python_task_2', python_callable=second_task)

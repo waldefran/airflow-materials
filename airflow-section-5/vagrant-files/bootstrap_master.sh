@@ -16,7 +16,7 @@ su - vagrant -c "kubectl create -f /home/vagrant/net.yml"
 
 # Deploy flannel network
 # echo "[TASK 3] Deploy flannel network"
-# su - vagrant -c "kubectl create -f /kube-flannel.yml"
+# su - vagrant -c "kubectl create -f /home/vagrant/kube-flannel.yml"
 
 # Generate Cluster join command
 echo "[TASK 4] Generate and save cluster join command to /joincluster.sh"

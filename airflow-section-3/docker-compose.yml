@@ -185,7 +185,7 @@ services:
     ports:
       - "32762:8888"
     volumes:
-      - ./mnt/hue/hue.ini:/usr/share/hue/desktop/conf/z-hue.ini
+      - ${PWD}/mnt/hue/hue.ini:/usr/share/hue/desktop/conf/z-hue.ini
     environment:
       - SERVICE_PRECONDITION=hive-server:10000 postgres:5432
     healthcheck:

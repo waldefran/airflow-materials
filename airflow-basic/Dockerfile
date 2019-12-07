@@ -3,7 +3,7 @@ FROM python:3.6-slim
 LABEL maintainer="MarcLamberti"
 
 # Arguments that can be set with docker build
-ARG AIRFLOW_VERSION=1.10.3
+ARG AIRFLOW_VERSION=1.10.6
 ARG AIRFLOW_HOME=/usr/local/airflow
 
 # Export the environment variable AIRFLOW_HOME where airflow will be installed
@@ -37,7 +37,7 @@ RUN apt-get update -y && \
 # Install apache airflow with subpackages
 RUN pip install --upgrade pip && \
     useradd -ms /bin/bash -d ${AIRFLOW_HOME} airflow && \
-    pip install apache-airflow[crypto,celery,postgres,hive,jdbc,mysql,ssh,docker,hdfs,kerberos,kubernetes,redis,rabbitmq,ldap,slack,webhdfs]==${AIRFLOW_VERSION}
+    pip install apache-airflow[crypto,celery,postgres,hive,mysql,ssh,docker,hdfs,kubernetes,redis,rabbitmq,slack]==${AIRFLOW_VERSION}
 
 # Fix because of wrong dependencies with flask 1.1.0
 RUN pip install --upgrade Flask

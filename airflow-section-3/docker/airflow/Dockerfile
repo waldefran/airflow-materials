@@ -3,7 +3,7 @@ FROM spark-base:latest
 LABEL maintainer="MarcLamberti"
 
 # Arguments that can be set with docker build
-ARG AIRFLOW_VERSION=1.10.3
+ARG AIRFLOW_VERSION=1.10.6
 ARG AIRFLOW_HOME=/usr/local/airflow
 
 # Export the environment variable AIRFLOW_HOME where airflow will be installed

@@ -1,7 +1,7 @@
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
 
-from datetime import datetime
+from datetime import datetime, timedelta
 
 def first_task():
     print("Hello from first task")

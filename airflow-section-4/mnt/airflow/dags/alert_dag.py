@@ -11,7 +11,7 @@ default_args = {
 with DAG(dag_id='alert_dag', schedule_interval="0 0 * * *", default_args=default_args, catchup=True) as dag:
     
     # Task 1
-    t1 = BashOperator(task_id='t1', bash_command="echo 'first task'")
+    t1 = BashOperator(task_id='t1', bash_command="exit 1")
     
     # Task 2
     t2 = BashOperator(task_id='t2', bash_command="echo 'second task'")

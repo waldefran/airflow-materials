@@ -1,5 +1,5 @@
 # Base Image
-FROM python:3.6-slim
+FROM python:3.7-slim
 LABEL maintainer="MarcLamberti"
 
 # Arguments that can be set with docker build

@@ -2,12 +2,10 @@ from airflow import DAG
 from airflow.operators.dummy_operator import DummyOperator
 from airflow.operators.python_operator import PythonOperator
 
-from datetime import datetime
+from datetime import datetime, timedelta
 
 default_args = {
-    'start_date': datetime(2019, 1, 1),
-    'owner': 'Airflow',
-    'email': 'owner@test.com'
+    'start_date': datetime(2019, 1, 1)
 }
 
 def process():

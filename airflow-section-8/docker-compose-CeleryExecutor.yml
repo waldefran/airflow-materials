@@ -10,13 +10,14 @@ services:
             - POSTGRES_USER=airflow
             - POSTGRES_PASSWORD=airflow
             - POSTGRES_DB=airflow
-        # Uncomment these lines to persist data on the local filesystem.
-        #     - PGDATA=/var/lib/postgresql/data/pgdata
-        # volumes:
-        #     - ./mnt/postgres:/var/lib/postgresql/data/pgdata
+            - PGDATA=/var/lib/postgresql/data/pgdata
+        volumes:
+            - ./mnt/postgres:/var/lib/postgresql/data/pgdata
 
     webserver:
-        image: puckel/docker-airflow:1.10.4
+        build:
+            context: ./docker/airflow
+        image: puckel/docker-airflow:1.10.7
         restart: always
         depends_on:
             - postgres
@@ -29,10 +30,12 @@ services:
             - POSTGRES_PASSWORD=airflow
             - POSTGRES_DB=airflow
             - REDIS_PASSWORD=redispass
+            - PYTHONPATH=/usr/local/airflow/conf/
         volumes:
             - ./mnt/airflow/dags:/usr/local/airflow/dags
             - ./mnt/airflow/airflow.cfg:/usr/local/airflow/airflow.cfg
             - ./mnt/airflow/logs:/usr/local/airflow/logs
+            - ./mnt/airflow/conf:/usr/local/airflow/conf
             # Uncomment to include custom plugins
             # - ./plugins:/usr/local/airflow/plugins
         ports:
@@ -45,7 +48,9 @@ services:
             retries: 3
 
     flower:
-        image: puckel/docker-airflow:1.10.4
+        build:
+            context: ./docker/airflow
+        image: puckel/docker-airflow:1.10.7
         restart: always
         depends_on:
             - redis
@@ -57,13 +62,17 @@ services:
         command: flower
 
     scheduler:
-        image: puckel/docker-airflow:1.10.4
+        build:
+            context: ./docker/airflow
+        image: puckel/docker-airflow:1.10.7
         restart: always
         depends_on:
             - webserver
         volumes:
             - ./mnt/airflow/dags:/usr/local/airflow/dags
-            - ./mnt/airflow/airflow.cfg:/usr/local/airflow/airflow.cfg            
+            - ./mnt/airflow/airflow.cfg:/usr/local/airflow/airflow.cfg
+            - ./mnt/airflow/logs:/usr/local/airflow/logs   
+            - ./mnt/airflow/conf:/usr/local/airflow/conf
         # Uncomment to include custom plugins
             # - ./plugins:/usr/local/airflow/plugins
         environment:
@@ -74,16 +83,21 @@ services:
             - POSTGRES_PASSWORD=airflow
             - POSTGRES_DB=airflow
             - REDIS_PASSWORD=redispass
+            - PYTHONPATH=/usr/local/airflow/conf/
         command: scheduler
 
     worker:
-        image: puckel/docker-airflow:1.10.4
+        build:
+            context: ./docker/airflow
+        image: puckel/docker-airflow:1.10.7
         restart: always
         depends_on:
             - scheduler
         volumes:
             - ./mnt/airflow/dags:/usr/local/airflow/dags
             - ./mnt/airflow/airflow.cfg:/usr/local/airflow/airflow.cfg
+            - ./mnt/airflow/logs:/usr/local/airflow/logs   
+            - ./mnt/airflow/conf:/usr/local/airflow/conf  
             # Uncomment to include custom plugins
             # - ./plugins:/usr/local/airflow/plugins
         environment:
@@ -93,4 +107,5 @@ services:
             - POSTGRES_PASSWORD=airflow
             - POSTGRES_DB=airflow
             - REDIS_PASSWORD=redispass
+            - PYTHONPATH=/usr/local/airflow/conf/
         command: worker

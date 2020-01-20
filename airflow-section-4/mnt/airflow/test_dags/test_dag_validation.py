@@ -5,7 +5,7 @@ class TestDagValidation:
 
     LOAD_SECOND_THRESHOLD = 2
     REQUIRED_EMAIL = "owner@test.com"
-    EXPECTED_NUMBER_OF_DAGS = 6
+    EXPECTED_NUMBER_OF_DAGS = 7
 
     def test_import_dags(self, dagbag):
         """

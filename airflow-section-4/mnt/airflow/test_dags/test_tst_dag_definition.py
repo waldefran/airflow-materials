@@ -48,7 +48,7 @@ class TestTstDagDefinition:
         """
             Verify that the start_date is < current date and catchup = False
         """
-        assert True
+        True
 
     def test_same_start_date_all_tasks(self, dag):
         """

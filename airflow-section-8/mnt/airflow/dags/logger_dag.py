@@ -18,3 +18,5 @@ with DAG(dag_id="logger_dag", default_args=default_args, schedule_interval="@dai
             task_id="t2",
             bash_command="echo 'It works'"
         )
+
+    t1 >> t2

@@ -22,7 +22,7 @@ def get_next_task(**context):
     return context['ti'].xcom_pull(key='next_task')
 
 def get_multiple_xcoms(**context):
-    print(context['ti'].xcom_pull(task_ids=['t0', 't2']))
+    print(context['ti'].xcom_pull(key=None, task_ids=['t0', 't2']))
 
 with DAG(dag_id='xcom_dag', default_args=args, schedule_interval="@once") as dag:
     

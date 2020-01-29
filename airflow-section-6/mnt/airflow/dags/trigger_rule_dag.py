@@ -11,11 +11,11 @@ default_args = {
 
 def download_website_a():
     print("download_website_a")
-    raise ValueError("error")
+    #raise ValueError("error")
 
 def download_website_b():
     print("download_website_b")
-    raise ValueError("error")
+    #raise ValueError("error")
 
 def download_failed():
     print("download_failed")
@@ -66,7 +66,7 @@ with DAG(dag_id='trigger_rule_dag',
     download_failed_task = PythonOperator(
         task_id='download_failed',
         python_callable=download_failed,
-        trigger_rule="all_failed"
+        trigger_rule="all_success"
     )
 
     download_succeed_task = PythonOperator(
@@ -78,28 +78,23 @@ with DAG(dag_id='trigger_rule_dag',
     process_task = PythonOperator(
         task_id='process',
         python_callable=process,
-        trigger_rule="one_success"
+        trigger_rule="all_success"
     )
 
     notif_a_task = PythonOperator(
         task_id='notif_a',
         python_callable=notif_a,
-        trigger_rule="none_failed"
+        trigger_rule="all_success"
     )
 
     notif_b_task = PythonOperator(
         task_id='notif_b',
         python_callable=notif_b,
-        trigger_rule="one_failed"
+        trigger_rule="all_success"
     )
 
     # Implement dependencies below
     # ie:
-    # a >> b
-    # [a b] >> c
+    # a >> b        : b depends on a
+    # [a b] >> c    : c depends on a and b
     # ...
-    [ download_website_a_task, download_website_b_task ] >> download_failed_task
-    [ download_website_a_task, download_website_b_task ] >> download_succeed_task
-    download_failed_task >> process_task
-    download_succeed_task >> process_task
-    process_task >> [notif_a_task, notif_b_task]

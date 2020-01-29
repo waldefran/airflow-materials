@@ -45,7 +45,7 @@ with DAG(dag_id='branch_dag',
         task_id='none'
     )
 
-    save = DummyOperator(task_id='save', trigger_rule='one_success')
+    save = DummyOperator(task_id='save')
 
     check_api >> none >> save
 

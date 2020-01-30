@@ -10,9 +10,9 @@ services:
             - POSTGRES_USER=airflow
             - POSTGRES_PASSWORD=airflow
             - POSTGRES_DB=airflow
-            - PGDATA=/var/lib/postgresql/data/pgdata
-        volumes:
-            - ./mnt/postgres:/var/lib/postgresql/data/pgdata
+#            - PGDATA=/var/lib/postgresql/data/pgdata
+#        volumes:
+#            - ./mnt/postgres:/var/lib/postgresql/data/pgdata
 
     webserver:
         build:

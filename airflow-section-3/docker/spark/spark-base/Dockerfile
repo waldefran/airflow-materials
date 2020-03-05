@@ -2,7 +2,7 @@ FROM hive-base:latest
 LABEL maintainer="MarcLamberti"
 
 # Defining useful environment variables
-ENV SPARK_VERSION=2.4.4
+ENV SPARK_VERSION=2.4.5
 ENV HADOOP_VERSION=2.7
 ENV SCALA_VERSION=2.12.4
 ENV SCALA_HOME=/usr/share/scala

@@ -1,4 +1,4 @@
-version: '3.5'
+version: '2.1'
 services:
 
 ######################################################
@@ -10,8 +10,6 @@ services:
     container_name: postgres
     ports:
       - "32769:5432"
-    volumes:
-      - ./mnt/postgres:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=airflow
       - POSTGRES_PASSWORD=airflow
@@ -185,7 +183,7 @@ services:
     ports:
       - "32762:8888"
     volumes:
-      - ${PWD}/mnt/hue/hue.ini:/usr/share/hue/desktop/conf/z-hue.ini
+      - ./mnt/hue/hue.ini:/usr/share/hue/desktop/conf/z-hue.ini
     environment:
       - SERVICE_PRECONDITION=hive-server:10000 postgres:5432
     healthcheck:
@@ -240,8 +238,6 @@ services:
       - SPARK_MASTER_ENDPOINT=spark-master
       - SPARK_MASTER_PORT=7077
       - DEPLOY_MODE=client
-    volumes:
-      - ./mnt/livy:/tmp
     healthcheck:
       test: [ "CMD", "nc", "-z", "livy", "8998" ]
       timeout: 45s
@@ -257,7 +253,8 @@ services:
     restart: always
     container_name: airflow
     volumes:
-      - ./mnt/airflow:/usr/local/airflow
+      - ./mnt/airflow/airflow.cfg:/usr/local/airflow/airflow.cfg
+      - ./mnt/airflow/dags:/usr/local/airflow/dags
     ports:
       - 8080:8080
     healthcheck:

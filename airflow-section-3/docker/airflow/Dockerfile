@@ -3,7 +3,7 @@ FROM spark-base:latest
 LABEL maintainer="MarcLamberti"
 
 # Arguments that can be set with docker build
-ARG AIRFLOW_VERSION=1.10.6
+ARG AIRFLOW_VERSION=1.10.9
 ARG AIRFLOW_HOME=/usr/local/airflow
 
 # Export the environment variable AIRFLOW_HOME where airflow will be installed
@@ -11,7 +11,8 @@ ENV AIRFLOW_HOME=${AIRFLOW_HOME}
 
 # Install dependencies and tools
 RUN apt-get update -y && \
-    apt-get install -y \
+    apt-get upgrade -yqq && \
+    apt-get install -yqq --no-install-recommends \
     python3-dev \
     wget \
     libczmq-dev \
@@ -39,6 +40,9 @@ RUN apt-get update -y && \
 # Install apache airflow with subpackages
 RUN pip install --upgrade pip && \
     useradd -ms /bin/bash -d ${AIRFLOW_HOME} airflow && \
+    pip install websocket-client==0.54.0 && \
+    pip install six==1.11.0 && \
+    pip install python-dateutil==2.6.0.0 && \
     pip install apache-airflow[crypto,celery,postgres,hive,jdbc,mysql,ssh,docker,hdfs,kerberos,kubernetes,redis,rabbitmq,ldap,slack,webhdfs]==${AIRFLOW_VERSION}
 
 # Fix because of wrong dependencies with flask 1.1.0

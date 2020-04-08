@@ -1,5 +1,5 @@
 # Base Image
-FROM python:3.7
+FROM python:3.6.9-slim-buster
 LABEL maintainer="MarcLamberti"
 
 # Arguments that can be set with docker build
@@ -34,16 +34,14 @@ RUN apt-get update -yqq && \
     locales \
     && apt-get clean
 
+COPY ./requirements-python3.6.txt /requirements-python3.6.txt
+
 # Upgrade pip
 # Create airflow user 
 # Install apache airflow with subpackages
 RUN pip install --upgrade pip && \
     useradd -ms /bin/bash -d ${AIRFLOW_HOME} airflow && \
-    pip install websocket-client==0.54.0 && \
-    pip install apache-airflow[crypto,celery,postgres,hive,mysql,ssh,docker,hdfs,kubernetes,redis,rabbitmq,slack]==${AIRFLOW_VERSION}
-
-# Fix because of wrong dependencies with flask 1.1.0
-RUN pip install --upgrade Flask
+    pip install apache-airflow[crypto,celery,postgres,hive,mysql,ssh,docker,hdfs,kubernetes,redis,rabbitmq,slack]==${AIRFLOW_VERSION} --constraint /requirements-python3.6.txt
 
 # Copy the entrypoint.sh from host to container (at path AIRFLOW_HOME)
 COPY ./entrypoint.sh ./entrypoint.sh

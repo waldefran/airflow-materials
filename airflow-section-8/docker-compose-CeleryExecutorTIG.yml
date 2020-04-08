@@ -17,7 +17,7 @@ services:
     webserver:
         build:
             context: ./docker/airflow
-        image: puckel/docker-airflow:1.10.7
+        image: puckel/docker-airflow:1.10.9
         restart: always
         depends_on:
             - postgres
@@ -50,7 +50,7 @@ services:
     flower:
         build:
             context: ./docker/airflow
-        image: puckel/docker-airflow:1.10.7
+        image: puckel/docker-airflow:1.10.9
         restart: always
         depends_on:
             - redis
@@ -64,7 +64,7 @@ services:
     scheduler:
         build:
             context: ./docker/airflow
-        image: puckel/docker-airflow:1.10.7
+        image: puckel/docker-airflow:1.10.9
         restart: always
         depends_on:
             - webserver
@@ -89,7 +89,7 @@ services:
     worker:
         build:
             context: ./docker/airflow
-        image: puckel/docker-airflow:1.10.7
+        image: puckel/docker-airflow:1.10.9
         restart: always
         depends_on:
             - scheduler

@@ -35,20 +35,14 @@ RUN apt-get update -y && \
     netcat \
     && apt-get autoremove -yqq --purge && apt-get clean
 
+COPY ./requirements-python3.5.txt /requirements-python3.5.txt
+
 # Upgrade pip
 # Create airflow user 
 # Install apache airflow with subpackages
 RUN pip install --upgrade pip && \
     useradd -ms /bin/bash -d ${AIRFLOW_HOME} airflow && \
-    pip install websocket-client==0.54.0 && \
-    pip install six==1.11.0 && \
-    pip install python-dateutil==2.6.0.0 && \
-    pip install apache-airflow[crypto,celery,postgres,hive,jdbc,mysql,ssh,docker,hdfs,kerberos,kubernetes,redis,rabbitmq,ldap,slack,webhdfs]==${AIRFLOW_VERSION}
-
-# Fix because of wrong dependencies with flask 1.1.0
-# Install psycopg2
-RUN pip install --upgrade Flask && \
-    pip install psycopg2-binary
+    pip install apache-airflow[crypto,celery,postgres,hive,jdbc,mysql,ssh,docker,hdfs,kerberos,kubernetes,redis,rabbitmq,ldap,slack,webhdfs]==${AIRFLOW_VERSION} --constraint /requirements-python3.5.txt
 
 # Copy the airflow.cfg file (config)
 #COPY ./config/airflow.cfg ${AIRFLOW_HOME}/airflow.cfg

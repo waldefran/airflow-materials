@@ -17,7 +17,7 @@ services:
     webserver:
         build:
             context: ./docker/airflow
-        image: marclamberti/docker-airflow-security:1.10.7
+        image: marclamberti/docker-airflow-security:1.10.9
         restart: always
         depends_on:
             - postgres
@@ -46,7 +46,7 @@ services:
     flower:
         build:
             context: ./docker/airflow
-        image: marclamberti/docker-airflow-security:1.10.7
+        image: marclamberti/docker-airflow-security:1.10.9
         restart: always
         depends_on:
             - redis
@@ -60,7 +60,7 @@ services:
     scheduler:
         build:
             context: ./docker/airflow
-        image: marclamberti/docker-airflow-security:1.10.7
+        image: marclamberti/docker-airflow-security:1.10.9
         restart: always
         depends_on:
             - webserver
@@ -81,7 +81,7 @@ services:
     worker:
         build:
             context: ./docker/airflow
-        image: marclamberti/docker-airflow-security:1.10.7
+        image: marclamberti/docker-airflow-security:1.10.9
         restart: always
         depends_on:
             - scheduler

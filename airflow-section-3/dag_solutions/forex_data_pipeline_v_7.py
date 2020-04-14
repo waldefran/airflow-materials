@@ -4,6 +4,7 @@ from airflow.contrib.sensors.file_sensor import FileSensor
 from airflow.operators.python_operator import PythonOperator
 from airflow.operators.bash_operator import BashOperator
 from airflow.operators.hive_operator import HiveOperator
+from airflow.contrib.operators.spark_submit_operator import SparkSubmitOperator
 from datetime import datetime, timedelta
 
 import csv

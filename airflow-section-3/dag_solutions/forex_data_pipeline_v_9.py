@@ -6,6 +6,7 @@ from airflow.operators.bash_operator import BashOperator
 from airflow.operators.hive_operator import HiveOperator
 from airflow.operators.email_operator import EmailOperator
 from airflow.operators.slack_operator import SlackAPIPostOperator
+from airflow.contrib.operators.spark_submit_operator import SparkSubmitOperator
 from datetime import datetime, timedelta
 
 import csv

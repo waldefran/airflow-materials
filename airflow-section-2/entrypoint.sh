@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Initiliase the metadatabase
+# Initiliase the metastore
 airflow initdb
 
 # Run the scheduler in background

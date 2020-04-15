@@ -1,9 +1,9 @@
 # Base Image
-FROM python:3.6.9-slim-buster
+FROM python:3.5-slim
 LABEL maintainer="MarcLamberti"
 
 # Arguments that can be set with docker build
-ARG AIRFLOW_VERSION=1.10.9
+ARG AIRFLOW_VERSION=1.10.10
 ARG AIRFLOW_HOME=/usr/local/airflow
 
 # Export the environment variable AIRFLOW_HOME where airflow will be installed
@@ -34,14 +34,14 @@ RUN apt-get update -yqq && \
     locales \
     && apt-get clean
 
-COPY ./requirements-python3.6.txt /requirements-python3.6.txt
+COPY ./requirements-python3.5.txt /requirements-python3.5.txt
 
 # Upgrade pip
 # Create airflow user 
 # Install apache airflow with subpackages
 RUN pip install --upgrade pip && \
     useradd -ms /bin/bash -d ${AIRFLOW_HOME} airflow && \
-    pip install apache-airflow[crypto,celery,postgres,hive,mysql,ssh,docker,hdfs,kubernetes,redis,rabbitmq,slack]==${AIRFLOW_VERSION} --constraint /requirements-python3.6.txt
+    pip install apache-airflow[crypto,celery,postgres,hive,mysql,ssh,docker,hdfs,kubernetes,redis,rabbitmq,slack]==${AIRFLOW_VERSION} --constraint /requirements-python3.5.txt
 
 # Copy the entrypoint.sh from host to container (at path AIRFLOW_HOME)
 COPY ./entrypoint.sh ./entrypoint.sh

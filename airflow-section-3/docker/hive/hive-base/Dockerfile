@@ -11,7 +11,7 @@ WORKDIR /opt
 RUN apt-get install -yqq \
     wget \
     procps && \
-    wget -c -O hive.tar.gz https://www-eu.apache.org/dist/hive/hive-${HIVE_VERSION}/apache-hive-${HIVE_VERSION}-bin.tar.gz && \
+    wget -c -O hive.tar.gz https://archive.apache.org/dist/hive/hive-${HIVE_VERSION}/apache-hive-${HIVE_VERSION}-bin.tar.gz && \
     tar xvf hive.tar.gz && \
     rm hive.tar.gz && \
     mv apache-hive-${HIVE_VERSION}-bin hive && \

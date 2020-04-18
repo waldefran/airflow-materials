@@ -57,7 +57,7 @@ RUN apt-get install -yqq python3 python3-numpy python3-matplotlib python3-scipy 
 # Installing Spark
 WORKDIR ${SPARK_HOME}
 
-RUN wget --no-verbose https://www-eu.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz && \
+RUN wget --no-verbose https://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz && \
     tar zxf spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz && \ 
     mv spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}/* . && \
     rm -rf spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz && \

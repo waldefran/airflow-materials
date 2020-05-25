@@ -2,7 +2,7 @@
 
 
 Installing Airflow
-docker run -it -p 8080 python:3.5-slim /bin/bash
+docker run -it -p 8080:8080 python:3.5-slim /bin/bash
 * Create and start a docker container from the Docker image python:3.5-slim and execute the command /bin/bash in order to have a shell session
 
 

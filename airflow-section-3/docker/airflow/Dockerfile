@@ -3,7 +3,7 @@ FROM spark-base:latest
 LABEL maintainer="MarcLamberti"
 
 # Arguments that can be set with docker build
-ARG AIRFLOW_VERSION=1.10.9
+ARG AIRFLOW_VERSION=1.10.10
 ARG AIRFLOW_HOME=/usr/local/airflow
 
 # Export the environment variable AIRFLOW_HOME where airflow will be installed
@@ -35,14 +35,14 @@ RUN apt-get update -y && \
     netcat \
     && apt-get autoremove -yqq --purge && apt-get clean
 
-COPY ./requirements-python3.5.txt /requirements-python3.5.txt
+COPY ./requirements-python3.7.txt /requirements-python3.7.txt
 
 # Upgrade pip
 # Create airflow user 
 # Install apache airflow with subpackages
 RUN pip install --upgrade pip && \
     useradd -ms /bin/bash -d ${AIRFLOW_HOME} airflow && \
-    pip install apache-airflow[crypto,celery,postgres,hive,jdbc,mysql,ssh,docker,hdfs,kerberos,kubernetes,redis,rabbitmq,ldap,slack,webhdfs]==${AIRFLOW_VERSION} --constraint /requirements-python3.5.txt
+    pip install apache-airflow[crypto,celery,postgres,hive,jdbc,mysql,ssh,docker,hdfs,redis,slack,webhdfs]==${AIRFLOW_VERSION} --constraint /requirements-python3.7.txt
 
 # Copy the airflow.cfg file (config)
 #COPY ./config/airflow.cfg ${AIRFLOW_HOME}/airflow.cfg

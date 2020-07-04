@@ -1,4 +1,4 @@
-FROM openjdk:8u212-b04-jdk-stretch
+FROM openjdk:8-jdk-slim
 LABEL maintainer="MarcLamberti"
 
 ENV HADOOP_VERSION=3.1.1

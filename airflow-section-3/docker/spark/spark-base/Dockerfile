@@ -50,9 +50,15 @@ RUN export PATH="/usr/local/sbt/bin:$PATH" && \
     sbt sbtVersion
 
 # Adding dependencies for PySpark
-RUN apt-get install -yqq python3 python3-numpy python3-matplotlib python3-scipy python3-pandas python3-simpy && \
-    update-alternatives --install "/usr/bin/python" "python" "$(which python3)" 1 && \
-    curl https://bootstrap.pypa.io/get-pip.py | python3
+RUN apt-get install -y curl python3.7 python3.7-dev python3.7-distutils
+RUN update-alternatives --install /usr/bin/python python /usr/bin/python3.7 1
+RUN update-alternatives --set python /usr/bin/python3.7
+RUN curl https://bootstrap.pypa.io/get-pip.py | python3
+RUN apt-get install -yqq python3-numpy python3-matplotlib python3-scipy python3-pandas python3-simpy
+
+#RUN apt-get install -yqq python3 python3-numpy python3-matplotlib python3-scipy python3-pandas python3-simpy && \
+#    update-alternatives --install "/usr/bin/python" "python" "$(which python3)" 1 && \
+#    curl https://bootstrap.pypa.io/get-pip.py | python3
 
 # Installing Spark
 WORKDIR ${SPARK_HOME}

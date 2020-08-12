@@ -45,7 +45,8 @@ su - airflow
 virtualenv sandbox
 * Create the virtual env named sandbox
 
-
+arn:aws:iam::953076219999:role/AirflowCodePipelineServiceRole
+arn:aws:iam::953076219999:role/AirflowCodeBuildServiceRole
 
 
 source sandbox/bin/activate
